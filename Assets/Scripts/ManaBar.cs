@@ -12,7 +12,7 @@ public class ManaBar : MonoBehaviour
 	void OnEnable()
 	{
 
-		Messenger.AddListener< float > ( "AddMana" , IncreaseMana );
+		Messenger.AddListener< float > ( "AddMana" , IncreaseMana ); //Message from Firefly.cs
 
 	}
 

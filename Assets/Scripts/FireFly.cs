@@ -50,6 +50,8 @@ public class FireFly : MonoBehaviour
 	public bool isIdle = false;
 	public bool isPulsing = false;
 
+	bool isLightningBoltActive = false;
+
 
 	//Array of Waypoints 
 	public Vector3[] wayPoints = new Vector3[ 10 ];
@@ -109,9 +111,16 @@ public class FireFly : MonoBehaviour
 
 	void SendMana()
 	{
+
+
+
 		state = State.Pulsing;
 
-		lightningBolt.SetActive ( true );
+		if (!isLightningBoltActive) 
+		{
+			lightningBolt.SetActive (true);
+			isLightningBoltActive = true;
+		}
 
 
 		//Send Mana to the ManaBar
@@ -120,12 +129,12 @@ public class FireFly : MonoBehaviour
 		if ( emotion <= 0.4 ) 
 		{
 		
-			scoreValue = 1;
+			scoreValue = -1;
 		
 		} 
-		else if (emotion > 0.4f && emotion <= 0.7f) 
+		else if ( emotion > 0.4f && emotion <= 0.7f ) 
 		{
-			scoreValue = 2;
+			scoreValue = 1;
 		}
 		else
 		{
@@ -133,7 +142,7 @@ public class FireFly : MonoBehaviour
 		}
 
 
-
+		//Recipient ManaBar.cs
 		Messenger.Broadcast< float > ( "AddMana" , 1.0f );
 
 		mana--;
@@ -215,7 +224,7 @@ public class FireFly : MonoBehaviour
 
 
 
-		//Move ();
+		Move ();
 	}
 
 	void Boundaries()

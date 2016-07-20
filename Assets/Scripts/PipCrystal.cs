@@ -20,6 +20,7 @@ public class PipCrystal : MonoBehaviour
 {
 
 
+	public GameObject[] fireFlies;
 	public GameObject crystalModel;
 
 	public int userState;  //1 = Relaxed  2 = Steady 3 = Stressed
@@ -67,7 +68,7 @@ public class PipCrystal : MonoBehaviour
 
 	void OnEnable()
 	{
-		Messenger.AddListener( "Connected" , Connected );
+		Messenger.AddListener( "Connected" , Connected ); //Message from CrystalPipTest.cs
 		Messenger.AddListener<float> ( "Emotion" , SetEmotion );
 		Messenger.AddListener<string> ( "PipInput" , ProcessPipInput );
 
@@ -86,6 +87,9 @@ public class PipCrystal : MonoBehaviour
 
 	void Start()
 	{
+
+
+
 		if ( !crystal ) 
 		{
 
@@ -119,6 +123,8 @@ public class PipCrystal : MonoBehaviour
 
 		}
 
+
+
 		m_Transform = crystal.transform;
 
 		origin = m_Transform.position;
@@ -128,6 +134,8 @@ public class PipCrystal : MonoBehaviour
 		rend.material.shader = Shader.Find( "Standard" );
 
 		rend.material.color = Color.white;
+
+		fireFlies = GameObject.FindGameObjectsWithTag ( "FireFly" );
 
 	
 	}
@@ -223,8 +231,14 @@ public class PipCrystal : MonoBehaviour
 		}
 
 		StartCoroutine ( "RotateCrystal" );
-		StartCoroutine ( "Broadcast" );
 
+
+		StartCoroutine ( "Pulse" );
+
+
+ 		
+
+	
 	}
 
 
@@ -305,7 +319,7 @@ public class PipCrystal : MonoBehaviour
 
 		//Rotate
 
-		Messenger.Broadcast ( "Activate" );
+
 
 		while ( true ) 
 		{
@@ -367,6 +381,38 @@ public class PipCrystal : MonoBehaviour
 
 		rotationSpeed = 20 * speedMultiplyer;
 	
+	}
+
+
+	IEnumerator Pulse()
+	{
+
+		int count = 3; 
+
+		while (count >= 0) 
+		{
+
+			Debug.Log ( "Firing Pulse to Reveal Fire Flies" );
+
+			//Pulse Effects fired here.
+
+			yield return new WaitForSeconds ( 1.0f );
+
+			count--;
+
+		}
+
+		//Send message to reveal the Fire Flies
+		Messenger.Broadcast ( "Activate" );
+
+		yield return new WaitForSeconds ( 1.0f );
+
+		StartCoroutine ( "Broadcast" );
+
+		//Recipient FireFlyGameManager
+		Messenger.Broadcast ( "StartCountdown" );
+
+
 	}
 
 	

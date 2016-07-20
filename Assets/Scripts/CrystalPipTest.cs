@@ -433,15 +433,13 @@ public class CrystalPipTest : MonoBehaviour
 	}
 
 
-
 	void Update()
 	{
 
 		pipDataFilter.update ( Time.deltaTime );
 
 		Emotion ();
-		
-	
+
 	}
 
 
