@@ -37,13 +37,20 @@ public class ManaBar : MonoBehaviour
 	void IncreaseMana( float mana )
 	{
 
-		if (manaBar.rectTransform.sizeDelta.x <= 195.0f) {
-			manaBar.rectTransform.sizeDelta += new Vector2 (mana, 0.0f);
+		float tmp = 0;
+
+		tmp = tmp + mana;
+
+		Debug.Log ( "Mana Bar : " + tmp );
+
+		if (manaBar.rectTransform.sizeDelta.x <= 195.0f) 
+		{
+			manaBar.rectTransform.sizeDelta += new Vector2 ( mana, 0.0f );
 		} 
 		else 
 		{
 
-
+			Debug.Log ( "Max Size Reached" );
 
 		}
 

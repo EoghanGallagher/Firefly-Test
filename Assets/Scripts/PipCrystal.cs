@@ -71,6 +71,7 @@ public class PipCrystal : MonoBehaviour
 		Messenger.AddListener( "Connected" , Connected ); //Message from CrystalPipTest.cs
 		Messenger.AddListener<float> ( "Emotion" , SetEmotion );
 		Messenger.AddListener<string> ( "PipInput" , ProcessPipInput );
+		Messenger.AddListener ( "GAMEOVER" , GameOver );
 
 	}
 
@@ -81,6 +82,7 @@ public class PipCrystal : MonoBehaviour
 		Messenger.RemoveListener( "Connected" , Connected );
 		Messenger.RemoveListener<float> ( "Emotion" , SetEmotion );
 		Messenger.RemoveListener<string> ( "PipInput" , ProcessPipInput );
+		Messenger.RemoveListener ( "GAMEOVER" , GameOver );
 	
 	}
 
@@ -122,8 +124,6 @@ public class PipCrystal : MonoBehaviour
 			return;
 
 		}
-
-
 
 		m_Transform = crystal.transform;
 
@@ -296,10 +296,10 @@ public class PipCrystal : MonoBehaviour
 			} 
 			else if( this.emotion >= max_emotion_limit )
 			{
-				topEnergySource.SetActive ( true );
+				//topEnergySource.SetActive ( true );
 				//bottomEnergySource.SetActive ( true );
 
-				Messenger.Broadcast ( "StopRequest" ); 
+				//Messenger.Broadcast ( "StopRequest" ); 
 			}
 
 			yield return new WaitForSeconds ( 1.0f );
@@ -412,6 +412,16 @@ public class PipCrystal : MonoBehaviour
 		//Recipient FireFlyGameManager
 		Messenger.Broadcast ( "StartCountdown" );
 
+
+	}
+
+
+	void GameOver()
+	{
+
+
+		Debug.Log ( "Game OVER CALLED" );
+		topEnergySource.SetActive ( false );
 
 	}
 

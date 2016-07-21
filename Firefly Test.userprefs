@@ -2,13 +2,13 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/FireFly.cs">
     <Files>
-      <File FileName="Assets/Scripts/ManaBar.cs" Line="46" Column="4" />
-      <File FileName="Assets/Scripts/FireFly.cs" Line="113" Column="3" />
-      <File FileName="Assets/Scripts/PipCrystal.cs" Line="266" Column="3" />
+      <File FileName="Assets/Scripts/ManaBar.cs" Line="33" Column="4" />
+      <File FileName="Assets/Scripts/FireFly.cs" Line="77" Column="3" />
+      <File FileName="Assets/Scripts/PipCrystal.cs" Line="294" Column="5" />
       <File FileName="../Avatar/Assets/Scripts/Gameplay/PlayerController.cs" Line="623" Column="17" />
-      <File FileName="Assets/Scripts/FireFlyGameManager.cs" Line="34" Column="3" />
+      <File FileName="Assets/Scripts/FireFlyGameManager.cs" Line="67" Column="4" />
       <File FileName="Assets/Plugins/Pip/PipManager.cs" Line="291" Column="41" />
-      <File FileName="Assets/Scripts/CrystalPipTest.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/CrystalPipTest.cs" Line="341" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

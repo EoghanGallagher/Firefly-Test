@@ -55,6 +55,7 @@
      <Compile Include="Assets\Scripts\Messenger\Messenger.cs" />
      <Compile Include="Assets\Scripts\PipCrystal.cs" />
      <Compile Include="Assets\Scripts\PipDataFilter.cs" />
+     <Compile Include="Assets\Scripts\SpawnControlller.cs" />
      <Compile Include="Assets\Scripts\UI\PopupMessageController.cs" />
      <Compile Include="Assets\Scripts\UI\UnityPipExample.cs" />
      <Compile Include="Assets\ext\CameraExtensions.cs" />

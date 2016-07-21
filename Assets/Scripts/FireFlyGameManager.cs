@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Galvanic.PipPlugin;
+using UnityEngine.UI;
 
 public class FireFlyGameManager : MonoBehaviour 
 {
@@ -19,14 +21,16 @@ public class FireFlyGameManager : MonoBehaviour
 
 	public bool isGameStarted = false; 
 
+	public Text timer;
+
 
 	void OnEnable()
 	{
 
-		Messenger.AddListener( "FireFlyDrained" , FireFlyCount  ); //Message fromFirefly.cs
 		Messenger.AddListener ( "StartCountdown" , StartCountDown ); //Message from PipCrystal.cs
 		Messenger.AddListener ( "StopCountdown" , StopCountDown ); //Message from PipCrystal.cs
 		Messenger.AddListener < float > ( "Emotion", RecordPipEvent ); //Message From CrystalPipTest.cs
+	
 	
 	}
 
@@ -34,7 +38,6 @@ public class FireFlyGameManager : MonoBehaviour
 	void OnDisable()
 	{
 	
-		Messenger.RemoveListener( "FireFlyDrained" , FireFlyCount  );
 		Messenger.RemoveListener ( "StartCountdown" , StartCountDown );
 		Messenger.RemoveListener ( "StopCountdown" , StopCountDown ); 
 		Messenger.RemoveListener < float > ( "Emotion", RecordPipEvent );
@@ -43,13 +46,30 @@ public class FireFlyGameManager : MonoBehaviour
 	}
 
 	// Use this for initialization
-	void Start () 
+	IEnumerator Start () 
 	{
 	
+		//fireFlies = GameObject.FindGameObjectsWithTag ( "FireFly" );
 
-		fireFlies = GameObject.FindGameObjectsWithTag ( "FireFly" );
+		//fireFlyCount = fireFlies.Length;
 
-		fireFlyCount = fireFlies.Length;
+		yield return new WaitForSeconds ( 2.0f );
+
+
+
+		Messenger.Broadcast ( "StartGame" );
+
+
+	}
+
+	private void DiscoverPip()
+	{
+
+	}
+
+
+	private void ConnectPip()
+	{
 
 	}
 
@@ -57,13 +77,13 @@ public class FireFlyGameManager : MonoBehaviour
 	void FireFlyCount()
 	{
 
-
 		fireFlyCount--;
 
 		if (fireFlyCount <= 0) 
 		{
 
-			Debug.Log ( "GAME OVER" );
+			GameOver ( );
+
 
 		}
 
@@ -89,10 +109,12 @@ public class FireFlyGameManager : MonoBehaviour
 
 		isGameStarted = true;
 
-		while (remainingTime >= 0) 
+		while (remainingTime > 0) 
 		{
 			yield return new WaitForSeconds ( 1.0f );
 			remainingTime--;
+
+			timer.text = remainingTime.ToString();
 		}
 
 
@@ -106,7 +128,13 @@ public class FireFlyGameManager : MonoBehaviour
 	{
 
 		Debug.Log ( "Game Over" );
-	
+
+		Messenger.Broadcast ( "GAMEOVER" );  
+		//Recipient(s)
+		//PipCrystal
+		//FireFly
+
+ 	
 	
 	}
 

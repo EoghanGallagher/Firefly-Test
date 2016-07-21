@@ -54,7 +54,7 @@ public class FireFly : MonoBehaviour
 
 
 	//Array of Waypoints 
-	public Vector3[] wayPoints = new Vector3[ 10 ];
+	public Vector3[] wayPoints = new Vector3[ 5 ];
 
 
 	void OnEnable()
@@ -86,16 +86,24 @@ public class FireFly : MonoBehaviour
 			return;
 		}
 
+
+		if ( !camera ) 
+		{
+			
+			camera = Camera.main;
+			 
+		}
+
 		Boundaries ();
 
 
-		SetMaterialAlpha ();
+	    SetMaterialAlpha ();
 		SetPosition ();
 
-		state = State.Idle;
+		state = State.Moving;
 
 
-		mana = Mathf.Floor( Random.Range ( 10.0f, 25.0f ) );
+		mana = Mathf.Floor( Random.Range ( 10.0f, 20.0f ) );
 
 	}
 
@@ -112,13 +120,11 @@ public class FireFly : MonoBehaviour
 	void SendMana()
 	{
 
-
-
 		state = State.Pulsing;
 
 		if (!isLightningBoltActive) 
 		{
-			lightningBolt.SetActive (true);
+			lightningBolt.SetActive ( true );
 			isLightningBoltActive = true;
 		}
 
@@ -143,7 +149,7 @@ public class FireFly : MonoBehaviour
 
 
 		//Recipient ManaBar.cs
-		Messenger.Broadcast< float > ( "AddMana" , 1.0f );
+		Messenger.Broadcast< float > ( "AddMana" , scoreValue );
 
 		mana--;
 
@@ -170,6 +176,9 @@ public class FireFly : MonoBehaviour
 	void Move()
 	{
 
+		isIdle = false;
+		isPulsing = false;
+
 
 		float movementTime = Random.Range ( 15, 30 );
 
@@ -190,8 +199,7 @@ public class FireFly : MonoBehaviour
 
 
 		//yield return new WaitForSeconds ( movementTime );
-		Debug.Log ( "Got this far" );
-		isMoving = false;
+
 		state = State.Idle;
 
 	
@@ -207,12 +215,16 @@ public class FireFly : MonoBehaviour
 
 	IEnumerator Idle()
 	{
+		isMoving = false;
+		isPulsing = false;
 
 		yield return new WaitForSeconds ( Random.Range( 1 , 12 ) );
 
 		state = State.Moving;
 
-		isIdle = false;
+
+
+
 	}
 
 
@@ -221,8 +233,7 @@ public class FireFly : MonoBehaviour
 	
 		//Firefly is Stationary and Pulses
 		isMoving = false;
-
-
+		isIdle = false;
 
 		Move ();
 	}

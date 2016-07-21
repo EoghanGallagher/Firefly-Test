@@ -288,7 +288,9 @@ namespace Galvanic.PipPlugin
             return matchedPip;
         }
 
-        public void ReceiveDiscoveryMessage(string message)
+
+
+		public void ReceiveDiscoveryMessage(string message)
         {
             PipDebug.Log("PipManager.ReceiveDiscoveryMessage, message=" + message);
             string[] data = message.Split(':');
